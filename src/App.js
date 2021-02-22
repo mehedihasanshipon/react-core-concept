@@ -1,4 +1,5 @@
 // import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 let style = {
   color : 'red',
@@ -17,6 +18,18 @@ function App() {
     {
       name : 'Adobe reader',
       price : '$6'
+    },
+    {
+      name : 'Adobe reader',
+      price : '$6'
+    },
+    {
+      name : 'Adobe reader',
+      price : '$6'
+    },
+    {
+      name : 'Adobe reader',
+      price : '$6'
     }
   ]
   return (
@@ -24,14 +37,19 @@ function App() {
       <h1 style={style}>I am react person</h1>
       <h3 style= {{color:'green',backgroundColor:'red'}}>I love to learn react js</h3>
      
-      <Person name = "Mehedi Hasan" job = "Student"></Person>
-      <Person name = "Shipon" job = "Student" />
+      {/* <Person name = "Mehedi Hasan" job = "Student"></Person>
+      <Person name = "Shipon" job = "Student" /> */}
 
-      <Product product = {products[0]} />
+      {/* <Product product = {products[0]} />
       <Product product = {products[1]} />
       <Product product = {products[2]} />
       <Product product = {products[2]} />
-      <Product product = {products[2]} />
+      <Product product = {products[2]} /> */}
+      <Counter />
+      <Users />
+      {
+        products.map(product => <Product product = {product} />)
+      }
       
     
 
@@ -77,6 +95,43 @@ const Product = (props) => {
       <h3>{name}</h3>
       <h2>Price : {price}</h2>
       <button>Buy now</button>
+    </div>
+  );
+}
+
+const Counter = () => {
+  const [count,setCount] = useState(0);
+  // const handleIncrease = () => setCount (count +1);
+  // const handleDecrease = () => {
+  //   // console.log('Clicked');
+  //   const newCount = count - 1;
+  //   setCount (newCount);
+  // }
+  return(
+    <div>
+      <h1>Count:{count} </h1>
+      <button onClick = {() => setCount (count +1)}>Increase</button>
+      <button onClick = {() => setCount (count - 1)}>Decrease</button>
+    </div>
+  );
+}
+
+const Users = () =>{
+  const [users,setUser] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(res => res.json())
+    .then(data => setUser(data));
+  },[])
+  return (
+    <div>
+      <h3>Dynamic Data: {users.length}</h3>
+      {console.log(users)}
+      <ul>
+        {
+          users.map((user) => <li>{user.address.zipcode}</li>)
+        }
+      </ul>
     </div>
   );
 }
