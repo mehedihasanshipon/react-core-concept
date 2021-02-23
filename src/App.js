@@ -47,12 +47,10 @@ function App() {
       <Product product = {products[2]} /> */}
       <Counter />
       <Users />
+      <Post />
       {
         products.map(product => <Product product = {product} />)
       }
-      
-    
-
     </div>
     
   );
@@ -126,7 +124,7 @@ const Users = () =>{
   return (
     <div>
       <h3>Dynamic Data: {users.length}</h3>
-      {console.log(users)}
+      
       <ul>
         {
           users.map((user) => <li>{user.address.zipcode}</li>)
@@ -134,6 +132,44 @@ const Users = () =>{
       </ul>
     </div>
   );
+}
+
+const Post = () => {
+  const postStyle = {
+    borderRadius: '.8rem',
+    margin : '1rem auto',
+    width : '60%',
+    padding : '1rem',
+    backgroundColor: '#F0F8FF',
+    boxShadow: '.5rem .5rem .8rem gray'
+  }
+
+  const p = {
+    fontSize: '1.2rem',
+    fontWeight : '600'
+  }
+  const [posts,setPost] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(res => res.json())
+    .then(data => setPost(data))
+  },[])
+  
+  return (
+    <div>
+      <h3>Dynamic Data: {posts.length}</h3>
+      
+      <ul>
+        {
+          // posts.map((post) => <li>{post.id}</li>)
+          
+        }
+        {
+          posts.map((post) => <li>{post.title}</li>)
+        }
+      </ul>
+    </div>
+  )
 }
 
 export default App;
